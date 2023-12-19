@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title>Homepage</title>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+    
+    <div class="container mt-3">
+      <h1 class="text-center">Blog Lists</h1>
+      <div class="row">
+        <form class="col-md-9" action="/blog/search" method="post" >
+          <div class="input-group mt-4 mb-3">
+            <input type="text" class="form-control" name="searchText" value="<%= searchText  %>" placeholder="Search">
+            <div class="input-group-append">
+              <button class="btn btn-success" type="submit">Go</button>
+            </div>
+          </div>
+        </form>
+        <form class="col-md-3" action="/blog/sort" id="myhandlesortForm"  method="post" >
+          <div class="form-group mb-3">
+            <label for="sort">Sort list</label>
+            <select  name="sort" id="sort" class="custom-select form-control" onchange="selectChange()">
+              <% if(sortMethod == "_id" || sortMethod == "ALL") { %>
+              <option selected value="_id">ID</option>
+              <option value="title">Length</option>
+              <option value="createdAt">Date</option>
+              <% }else if (sortMethod == "title") { %>
+                <option  value="ALL">ID</option>
+                <option selected value="title">Length</option>
+                <option value="createdAt">Date</option>
+              <%} else if (sortMethod == "createdAt") { %>
+                <option value="ALL">ID</option>
+                <option value="title">Length</option>
+                <option selected value="createdAt">Date</option>
+              <%} %>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="row row-cols-4">
+        <% blogs.forEach(blog => { %>
+        <div class="col" >
+          <div class="card col" style="width: 18rem;">
+            <img src="<%= blog.coverImageURL %>" style="height: 232px;"  class="card-img-top" />
+            <div class="card-body">
+              <h5 class="card-title"><%= blog.title %></h5>
+              <a href="/blog/<%= blog._id %>" class="btn btn-primary">View</a>
+              <a href="/blog/edit/<%= blog._id %>" class="btn btn-success">Edit</a>
+              <a href="/blog/delete/<%= blog._id %>" class="btn btn-danger">Delete</a>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <%- include('./partials/scripts') %>
+
+    <script>
+      function selectChange() {
+        document.getElementById('myhandlesortForm').submit();
+      }
+    </script>
+  </body>
+</html>
