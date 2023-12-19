@@ -12,12 +12,12 @@ Create .env file
        MONGO_URL = mongodb://localhost:27017/blog
 
 Installation
-* To install and run this project – install dependencies using npm and then start your server:
+* To install and run this project â€“ install dependencies using npm and then start your server:
 		$npm install
 		$npm run dev
 
 You should be able to access to URL:
-	http://localhost:3000
+	http://localhost:8000
 
 Functionalities:
 * User Registration
